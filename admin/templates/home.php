@@ -8,7 +8,7 @@
       <?php 
         while($row = mysql_fetch_assoc($result)){
       ?>
-        <li><?php echo $row['title'] ?></li>
+        <li><a href="editpage.php?page=<?php echo $row['id'] ?>"><?php echo $row['title'] ?></a></li>
       <?php } ?>
       </ul>
     </div>
