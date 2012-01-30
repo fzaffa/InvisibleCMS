@@ -4,5 +4,7 @@ RewriteEngine On
 RewriteBase /~francesco/mycms/
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
+
+
 RewriteRule ^([^/]+)$ index.php?page=$1 [L]
 </IfModule>

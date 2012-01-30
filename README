@@ -2,3 +2,5 @@ This is a draft of a cms i am building for personal use.
 
 
 Released under the GPL license.
+
+The .sql contains the structure of the only table that now is needed to make this work.
