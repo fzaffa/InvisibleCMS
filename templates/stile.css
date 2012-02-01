@@ -23,6 +23,7 @@ div#nav ul li
 div#nav
 {
 float: right;
+margin-top: 15px;
 }
 #logo h1
 {
@@ -51,9 +52,8 @@ float: right;
 }
 #header li a:hover
 {
-	color: #434343;
-	background: #dedede;
-	border-radius: 6px;
+	color: #434343;	
+	border-bottom: 2px solid #000000;
 	}
 	
 #cont
