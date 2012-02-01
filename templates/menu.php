@@ -1,3 +1,5 @@
+<div id="nav">
+	<ul>
 <?php
   foreach($menu as $mitem){
 ?>
@@ -5,3 +7,5 @@
 <?php
   }
 ?>
+	</ul>
+</div>
