@@ -4,6 +4,8 @@
   </head>
   <body>
     <div id="wrapper">
+    <a href="newpage.php">New Page</a>
+     <a href="..">View Site</a>
       <ul>
       <?php 
         while($row = mysql_fetch_assoc($result)){
