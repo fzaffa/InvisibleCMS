@@ -9,7 +9,7 @@ include "conn.php";
 if(!isset($_REQUEST['page'])){
   $page = 'home';
 }else{
-  $page = $_REQUEST['page'];
+  $page = clean_query($_REQUEST['page']);
 }
 
 $menusql = "SELECT title FROM pages WHERE inmenu = 1";

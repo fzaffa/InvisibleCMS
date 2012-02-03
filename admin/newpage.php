@@ -6,10 +6,10 @@ if(!isset($_POST['submit'])){
 }
 else
 {
-	$page = $_POST['page'];
-	$title = $_POST['title'];
-	$body = $_POST['body'];
-	$template = $_POST['template'];
+	$page = clean_query($_POST['page']);
+	$title = clean_query($_POST['title']);
+	$body = clean_query($_POST['body']);
+	$template = clean_query($_POST['template']);
 	if($_POST['inmenu'] == "inmenu"){
 		$inmenu = 1;
 	} else
