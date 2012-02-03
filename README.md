@@ -1,7 +1,7 @@
 #Invisible CMS
 InvisibleCMS is a lightweight and open source content management system created by Francesco Zaffaroni ( @fzaffa ).
 
-It is still in early development but it already works, anyway I recommend not to use it for production due to security issues.
+It is still in early development but it already works.
 
 ##Instructions
 To install and use it you only need to copy the files in a folder on your webserver, import in the database the included SQL, edit the *conn.php* file with your MySQL credentials and go to /yoursite/admin, there you will be able to create new pages and manage existing ones.
