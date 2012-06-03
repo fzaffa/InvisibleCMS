@@ -3,6 +3,23 @@ error_reporting(E_ALL);
 ini_set('display_errors', '1');
 include "conn.php";
 
+function get_content($slug)
+{
+	$sql = "SELECT * FROM sections WHERE slug = '$slug';";
+	$result = mysql_query($sql)
+	or die(mysql_error());
+	$row = mysql_fetch_assoc($result);
+	echo $row['cont'];
+}
+
+function get_title($slug)
+{
+	$sql = "SELECT * FROM sections WHERE slug = '$slug';";
+	$result = mysql_query($sql)
+	or die(mysql_error());
+	$row = mysql_fetch_assoc($result);
+	echo $row['title'];
+}
 //Legge che pagina è
 
 

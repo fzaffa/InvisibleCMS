@@ -14,6 +14,7 @@ div#wrapper
 	width: 960px;
 	padding: 15px;
 	margin: 0 auto;
+	overflow: hidden;
 }
 div#nav ul li
 {
@@ -65,4 +66,10 @@ margin-top: 15px;
 {
 	width: 120px;
 	float: right;
+}
+.mezzo
+{
+	width: 400px;
+	margin: 20px;
+	float: left;
 }

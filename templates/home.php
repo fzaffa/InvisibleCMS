@@ -12,6 +12,17 @@
 <div id="cont">
 <!-- <?php include "templates/sidebar.php"; ?> -->
 <?php echo $body ?>
+
+<div class="mezzo">
+	<h3><?php get_title('first'); ?></h3>
+	<?php get_content('first'); ?>
+</div>
+<div class="mezzo">
+	<h3><?php get_title('second'); ?></h3>
+	<?php get_content('second'); ?>
+</div>
+	
+</div>
 </div>
 </div>
 </body>
