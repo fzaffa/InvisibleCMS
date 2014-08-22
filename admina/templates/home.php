@@ -5,12 +5,13 @@
   <body>
     <div id="wrapper">
     <a href="newpage.php">New Page</a>
-     <a href="..">View Site</a>
+    <a href="..">View Site</a>
+    <a href="logout.php">Logout</a>
       <ul>
       <?php 
-        while($row = mysql_fetch_assoc($result)){
+        foreach($pages as $page){
       ?>
-        <li><a href="editpage.php?page=<?php echo $row['id'] ?>"><?php echo $row['title'] ?></a></li>
+        <li><a href="editpage.php?page=<?= $page->title?>"><?= $page->title?></a></li>
       <?php } ?>
       </ul>
     </div>

@@ -1,46 +1,42 @@
 <?php
-error_reporting(E_ALL);
-ini_set('display_errors', '1');
-include "conn.php";
-
-function get_content($slug)
+function __autoload($className)
 {
-	$sql = "SELECT * FROM sections WHERE slug = '$slug';";
-	$result = mysql_query($sql)
-	or die(mysql_error());
-	$row = mysql_fetch_assoc($result);
-	echo $row['cont'];
+    require_once $_SERVER['DOCUMENT_ROOT'].'/'.$className.'.php';
 }
 
-function get_title($slug)
-{
-	$sql = "SELECT * FROM sections WHERE slug = '$slug';";
-	$result = mysql_query($sql)
-	or die(mysql_error());
-	$row = mysql_fetch_assoc($result);
-	echo $row['title'];
+$requestURL = $_SERVER['REQUEST_URI'];
+if ($requestURL == '/') {
+    $title = 'home';
+    include "pageController.php";
 }
-//Legge che pagina è
-
-
-if(!isset($_REQUEST['page'])){
-  $page = 'home';
-}else{
-  $page = clean_query($_REQUEST['page']);
+//Admin routes
+elseif ($requestURL == '/admin/' or $requestURL == '/admin') {
+    $action = 'index';
+    include "adminController.php";
+}
+elseif ($requestURL == '/admin/new/' or $requestURL == '/admin/new') {
+    echo "admina page";
+}
+elseif ($requestURL == '/admin/login/' or $requestURL == '/admin/login') {
+    $action = 'login';
+    include "adminController.php";
+}
+elseif (preg_match('~/admin/edit/(?<page>[A-z0-9\-\+]+)~', $requestURL, $arr)) {
+    echo "Editing ".$arr['page'];
+    var_dump($arr);
+}
+//Admin routes
+elseif (preg_match("~\/(?<page>[A-Za-z0-9\-\+]+)~",$requestURL, $arr)) {
+    $title = $arr['page'];
+    include 'pageController.php';
 }
 
-$menusql = "SELECT title FROM pages WHERE inmenu = 1";
-$menuresult = mysql_query($menusql)
-  or die(mysql_error());
-$menu = array();
-while($row = mysql_fetch_assoc($menuresult)){
-  $menu[]= $row['title'];
-}
-$sql = "SELECT * FROM pages WHERE title = '$page'";
-$result = mysql_query($sql)
-	or die(mysql_error());
-$row = mysql_fetch_assoc($result);
-extract($row);
-include "templates/".$template.".php";
+// should match "/some-unique-url/and-another-unique-url"
+/*elseif (preg_match("(^\/[A-Za-z0-9\-]+\/[A-Za-z0-9\-]+)",$requestURL)) {
+ echo "ciao";
+}*/
 
+else {
+    include 'templates/errors/404.php';
+}
 ?>

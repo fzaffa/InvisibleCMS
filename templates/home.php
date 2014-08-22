@@ -1,25 +1,26 @@
 <html>
 <head>
-  <title><?php echo $title ?></title>
+  <title><?= $page->title ?></title>
   <link rel="stylesheet" type="text/css" href="templates/stile.css" />
 </head>
 <body>
 	<div id="wrapper">
 		<div id="header">
-		<div id="logo"><h1>Invisible CMS</h1></div>
-<?php include "menu.php"; ?>
+		<div id="logo"><h1>So' figo So' bello So' fotomodello</h1></div>
+            <div id="nav">
+                <?= $menu->getMenu()->menuPresenter(); ?>
+            </div>
 </div>
 <div id="cont">
-<!-- <?php include "templates/sidebar.php"; ?> -->
-<?php echo $body ?>
+<?= $page->body ?>
 
 <div class="mezzo">
-	<h3><?php get_title('first'); ?></h3>
-	<?php get_content('first'); ?>
+	<h3><?= $page->displaySectionTitle('Lato') ?></h3>
+    <p><?= $page->displaySection('Lato') ?></p>
 </div>
 <div class="mezzo">
-	<h3><?php get_title('second'); ?></h3>
-	<?php get_content('second'); ?>
+    <h3><?= $page->displaySectionTitle('Sinistra') ?></h3>
+    <p><?= $page->displaySection('Sinistra') ?></p>
 </div>
 	
 </div>
