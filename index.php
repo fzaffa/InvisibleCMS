@@ -5,7 +5,8 @@ function __autoload($className)
     $folders = [
         'src',
         'Section',
-        'Page'
+        'Page',
+        'Controllers'
     ];
     foreach ($folders as $folder) {
         if(file_exists($_SERVER['DOCUMENT_ROOT'].'/'.$folder.'/'.$className.'.php')){
@@ -13,50 +14,14 @@ function __autoload($className)
         }
     }
 }
-
-$requestURL = $_SERVER['REQUEST_URI'];
-if ($requestURL == '/') {
-    $slug = 'home';
-    include "pageController.php";
-}
-//Admin routes
-elseif ($requestURL == '/admin/' or $requestURL == '/admin') {
-    $action = 'index';
-    include "adminController.php";
-}
-elseif ($requestURL == '/admin/new/' or $requestURL == '/admin/new') {
-    $action = 'new';
-    include "adminController.php";
-}
-elseif ($requestURL == '/admin/store/' or $requestURL == '/admin/store') {
-    $action = 'store';
-    include "adminController.php";
-}
-elseif ($requestURL == '/admin/login/' or $requestURL == '/admin/login') {
-    $action = 'login';
-    include "adminController.php";
-}
-elseif ($requestURL == '/admin/logout/' or $requestURL == '/admin/logout') {
-    $action = 'logout';
-    include "adminController.php";
-}
-elseif (preg_match('~/admin/edit/(?<page>[A-z0-9\-\+]+)~', $requestURL, $arr)) {
-    $action = 'edit';
-    $arr['page'];
-    include "adminController.php";
-}
-//Pages route
-elseif (preg_match("~\/(?<page>[A-Za-z0-9\-\+]+)~",$requestURL, $arr)) {
-    $slug = $arr['page'];
-    include 'pageController.php';
-}
-
-// should match "/some-unique-url/and-another-unique-url"
-//elseif (preg_match("(^\/[A-Za-z0-9\-]+\/[A-Za-z0-9\-]+)",$requestURL)) {
-// echo "ciao";
-//}
-
-else {
-    include 'views/errors/404.php';
-}
+$router = new Router;
+$router->route('/', 'pageController:home');
+$router->route('/([\w\-]+)', 'pageController:show');
+$router->route('/admin', 'adminController:index');
+$router->route('/login', 'adminController:login');
+$router->route('/logout', 'adminController:logout');
+$router->route('/create', 'adminController:create');
+$router->route('/store', 'adminController:store');
+$router->route('/edit/([\w\-]+)', 'adminController:edit');
+$router->execute();
 ?>

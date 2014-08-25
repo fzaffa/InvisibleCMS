@@ -1,7 +1,7 @@
 <?php
-switch($action)
-{
-    case 'index':
+class AdminController {
+    public function index()
+    {
         if(Auth::check())
         {
             $pages = Page::all();
@@ -9,37 +9,39 @@ switch($action)
         } else {
             include 'views/admin/login.php';
         }
-        break;
-    case 'login':
+    }
+
+    public function login()
+    {
         if(Auth::login($_POST['username'], $_POST['password']))
         {
             header('Location: /admin/');
         }
         include 'views/admin/login.php';
-        break;
-    case 'logout':
+    }
+
+    public function logout()
+    {
         Auth::logout();
         header('Location: /');
-        break;
+    }
 
-    case 'new':
+    public function create()
+    {
         if(Auth::check())
         {
             include "views/admin/editpage.php";
         } else {
             include 'views/admin/login.php';
         }
-        break;
+    }
 
-    case 'edit':
+    public function edit($slug)
+    {
         if(Auth::check())
         {
-            if(!isset($arr['page'])){
-                echo "nessun a pagina";
-                return;
-            }
             $page = new Page;
-            $page->getPageBySlug($arr['page']);
+            $page->getPageBySlug($slug);
             $page->getSections();
             include "views/admin/editpage.php";
         }
@@ -47,8 +49,10 @@ switch($action)
         {
             include 'views/admin/login.php';
         }
-        break;
-    case 'store':
+    }
+
+    public function store()
+    {
         $page = new Page;
         $validator = new PageValidator($_POST);
         if($validator->passes())
@@ -61,6 +65,5 @@ switch($action)
             Message::send('errors', $validator->errors);
             header('Location: '.$_SERVER['HTTP_REFERER']);
         }
-        break;
-
+    }
 }

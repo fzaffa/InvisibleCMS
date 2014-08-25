@@ -5,9 +5,9 @@
   <body>
   <?php var_dump(Message::recive('errors')); ?>
     <div id="wrapper">
-    <a href="new/">New Page</a>
+    <a href="create">New Page</a>
     <a href="/">View Site</a>
-    <a href="logout/">Logout</a>
+    <a href="logout">Logout</a>
       <ul>
       <?php 
         foreach($pages as $page){
