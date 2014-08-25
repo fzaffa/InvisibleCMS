@@ -45,7 +45,7 @@ elseif (preg_match('~/admin/edit/(?<page>[A-z0-9\-\+]+)~', $requestURL, $arr)) {
     $arr['page'];
     include "adminController.php";
 }
-//Admin routes
+//Pages route
 elseif (preg_match("~\/(?<page>[A-Za-z0-9\-\+]+)~",$requestURL, $arr)) {
     $slug = $arr['page'];
     include 'pageController.php';

@@ -50,7 +50,6 @@ class Page {
         $this->db->bind(':body', $this->body);
         $this->db->bind(':template', $this->template);
         $this->db->bind(':inmenu', $this->inmenu);
-        var_dump($this->db);
         $this->db->execute();
 
         if(!empty($this->sections))
@@ -98,6 +97,7 @@ class Page {
     }
 
     /**
+     * Check if page exist in database
      * @param $slug
      * @return bool
      */
@@ -112,6 +112,7 @@ class Page {
     }
 
     /**
+     * Retrive from database a Page object from slug
      * @param $slug
      * @return Page
      */
@@ -125,6 +126,7 @@ class Page {
     }
 
     /**
+     * Cast the result of a query to a Page instance
      * @param array $data
      * @param null $obj
      * @return Page
@@ -141,6 +143,7 @@ class Page {
     }
 
     /**
+     * Loads Sections in object Page
      * @return Page
      */
     public function getSections()
@@ -153,6 +156,7 @@ class Page {
     }
 
     /**
+     * Take an array and castes it to Section objects, then return Page
      * @param array $sections
      * @return Page
      */
@@ -174,6 +178,7 @@ class Page {
     }
 
     /**
+     * Check if section exists.
      * @param $title
      * @return bool
      */
@@ -184,6 +189,7 @@ class Page {
     }
 
     /**
+     * Return the section body if section exists.
      * @param $title
      * @return string
      */
@@ -193,6 +199,7 @@ class Page {
     }
 
     /**
+     * Return the section title if section exists.
      * @param $title
      * @return string
      */
