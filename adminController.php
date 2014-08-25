@@ -5,23 +5,62 @@ switch($action)
         if(Auth::check())
         {
             $pages = Page::all();
-            include "admina/templates/home.php";
+            include "views/admin/home.php";
         } else {
-            include 'admina/templates/login.php';
+            include 'views/admin/login.php';
         }
         break;
     case 'login':
-        var_dump($_POST);
-        var_dump(Auth::login($_POST['username'], $_POST['password']));
         if(Auth::login($_POST['username'], $_POST['password']))
         {
             header('Location: /admin/');
         }
-        include 'admina/templates/login.php';
+        include 'views/admin/login.php';
         break;
     case 'logout':
-    {
         Auth::logout();
         header('Location: /');
-    }
+        break;
+
+    case 'new':
+        if(Auth::check())
+        {
+            include "views/admin/editpage.php";
+        } else {
+            include 'views/admin/login.php';
+        }
+        break;
+
+    case 'edit':
+        if(Auth::check())
+        {
+            if(!isset($arr['page'])){
+                echo "nessun a pagina";
+                return;
+            }
+            $page = new Page;
+            $page->getPageBySlug($arr['page']);
+            $page->getSections();
+            include "views/admin/editpage.php";
+        }
+        else
+        {
+            include 'views/admin/login.php';
+        }
+        break;
+    case 'store':
+        $page = new Page;
+        $validator = new PageValidator($_POST);
+        if($validator->passes())
+        {
+            $page->fill($_POST);
+            $page->fillSections($_POST['sections']);
+            $page->save();
+            header('Location: /admin/');
+        } else {
+            Message::send('errors', $validator->errors);
+            header('Location: '.$_SERVER['HTTP_REFERER']);
+        }
+        break;
+
 }

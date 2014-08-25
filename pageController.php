@@ -1,11 +1,10 @@
 <?php
-$title = str_replace('+', ' ', $title);
 $menu = new Menu;
 $page = new Page;
-if ($page->hasPage($title)) {
-    $page->getPageBySlug($title);
+if ($page->hasPage($slug)) {
+    $page->getPageBySlug($slug);
     $page->getSections();
-    include "templates/" . $page->template . ".php";
+    include "views/pages/" . $page->template . ".php";
     return;
 }
-include "templates/errors/404.php";
+include "views/errors/404.php";

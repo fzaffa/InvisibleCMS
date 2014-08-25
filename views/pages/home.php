@@ -1,7 +1,7 @@
 <html>
 <head>
   <title><?= $page->title ?></title>
-  <link rel="stylesheet" type="text/css" href="templates/stile.css" />
+  <link rel="stylesheet" type="text/css" href="views/pages/stile.css" />
 </head>
 <body>
 	<div id="wrapper">

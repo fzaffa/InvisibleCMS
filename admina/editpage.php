@@ -5,7 +5,6 @@ require_once "../Auth.php";
 if(Auth::check())
 {
     if(!isset($_POST['submit'])){
-
         if(!isset($_REQUEST['page'])){
             header("location: index.php");
         }

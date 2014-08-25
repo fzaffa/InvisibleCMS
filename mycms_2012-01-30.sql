@@ -1,1 +1,0 @@
-SELECT * FROM pages WHERE title = 'Home';

@@ -18,7 +18,16 @@
   </head>
   <body>
     <div id="wrapper">
-    <form method="post" atcion="editpage.php">
+        <?php if(Message::has('errors')){ ?>
+        <div id="errors">
+            <ul>
+            <?php foreach(Message::recive('errors') as $error){ ?>
+                <li><?= $error ?></li>
+            <?php }?>
+            </ul>
+        </div>
+        <?php } ?>
+    <form method="post" action="/admin/store/">
     <input type="hidden" name="id" value="<?= (!isset($page)) ? "": $page->id; ?>" /><br />
     	<label>Title</label><input type="text" name="title" value="<?= (!isset($page)) ? "": $page->title; ?>" /><br />
     	<label>template</label><input type="text" name="template" value="<?= (!isset($page)) ? "": $page->template; ?>" /><br />
