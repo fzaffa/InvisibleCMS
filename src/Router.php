@@ -20,7 +20,7 @@ class Router {
             }
         }
         list($controller, $action) = explode(':', $activeAction);
-        $controller = new $controller;
+        $controller = new $controller(new View);
         (isset($param)) ? $controller->{$action}($param) : $controller->{$action}();
     }
 }

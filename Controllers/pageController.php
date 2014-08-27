@@ -1,5 +1,10 @@
 <?php
-class pageController{
+class pageController extends Controller{
+
+    public function __construct($view)
+    {
+        parent::construct($view);
+    }
     public function show($slug)
     {
         $menu = new Menu;
@@ -7,10 +12,12 @@ class pageController{
         if ($page->hasPage($slug)) {
             $page->getPageBySlug($slug);
             $page->getSections();
-            include "views/pages/" . $page->template . ".php";
+            $this->view->render('pages/'.$page->template, array('page'=>$page, 'menu'=>$menu));
             return;
         }
         include "views/errors/404.php";
+
+
     }
     public function home()
     {

@@ -31,18 +31,19 @@ class Page {
     {
         if (!$this->id)
         {
-            $this->db->query("INSERT INTO pages (title, body, template, inmenu)
-                              VALUES (:title, :body, :template, :inmenu)");
+            $this->db->query("INSERT INTO pages (title, body, template, inmenu, slug)
+                              VALUES (:title, :body, :template, :inmenu, :slug)");
 
             $this->db->bind(':title', $this->title);
             $this->db->bind(':body', $this->body);
             $this->db->bind(':template', $this->template);
             $this->db->bind(':inmenu', $this->inmenu);
+            $this->db->bind(':slug', $this->slug);
             $this->db->execute();
             return;
         }
         $this->db->query("UPDATE pages
-                          SET title = :title, body = :body, template = :template, inmenu = :inmenu
+                          SET title = :title, body = :body, template = :template, inmenu = :inmenu, slug = :slug
                           WHERE id = :id");
 
         $this->db->bind(':id', $this->id);
@@ -50,6 +51,7 @@ class Page {
         $this->db->bind(':body', $this->body);
         $this->db->bind(':template', $this->template);
         $this->db->bind(':inmenu', $this->inmenu);
+        $this->db->bind(':slug', $this->slug);
         $this->db->execute();
 
         if(!empty($this->sections))

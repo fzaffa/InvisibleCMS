@@ -1,5 +1,9 @@
 <?php
-class AdminController {
+class AdminController extends Controller{
+    public function __construct($view)
+    {
+        parent::construct($view);
+    }
     public function index()
     {
         if(Auth::check())
@@ -30,7 +34,7 @@ class AdminController {
     {
         if(Auth::check())
         {
-            include "views/admin/editpage.php";
+            $this->view->render('admin/editpage');
         } else {
             include 'views/admin/login.php';
         }
