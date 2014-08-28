@@ -6,13 +6,10 @@ class AdminController extends Controller{
     }
     public function index()
     {
-        if(Auth::check())
-        {
-            $pages = Page::all();
-            include "views/admin/home.php";
-        } else {
-            include 'views/admin/login.php';
-        }
+        $this->filter('Auth');
+
+        $pages = Page::all();
+        include "views/admin/home.php";
     }
 
     public function login()
@@ -32,27 +29,21 @@ class AdminController extends Controller{
 
     public function create()
     {
-        if(Auth::check())
-        {
-            $this->view->render('admin/editpage');
-        } else {
-            include 'views/admin/login.php';
-        }
+        $this->filter('Auth');
+        $this->view->render('admin/editpage');
+
     }
 
     public function edit($slug)
     {
-        if(Auth::check())
-        {
-            $page = new Page;
-            $page->getPageBySlug($slug);
-            $page->getSections();
-            include "views/admin/editpage.php";
-        }
-        else
-        {
-            include 'views/admin/login.php';
-        }
+        $this->filter('Auth');
+
+        $page = new Page;
+        $page->getPageBySlug($slug);
+        $page->getSections();
+
+        include "views/admin/editpage.php";
+
     }
 
     public function store()

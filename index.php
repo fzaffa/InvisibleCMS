@@ -6,7 +6,8 @@ function __autoload($className)
         'src',
         'Section',
         'Page',
-        'Controllers'
+        'Controllers',
+        ''
     ];
     foreach ($folders as $folder) {
         if(file_exists($_SERVER['DOCUMENT_ROOT'].'/'.$folder.'/'.$className.'.php')){
