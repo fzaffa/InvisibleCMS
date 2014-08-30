@@ -1,0 +1,35 @@
+label
+{
+  width: 90px;
+  font-family: Helvetica;
+  font-weight: 100;
+  font-size: 16px;
+  color: $green;
+  line-height: 16px;
+  display: inline-block;
+  text-align: right;
+  padding-right: 10px;
+}
+input, select
+{
+  box-sizing: border-box;
+  height: 32px;
+  border-radius: 3px;
+  border: 1px solid $lightGrey;
+  width: 200px;
+}
+input:focus, select:focus, textarea:focus
+{
+  border: 1px solid $green;
+  outline: none;
+}
+
+textarea
+{
+  box-sizing: border-box;
+  border-radius: 3px;
+  border: 1px solid $lightGrey;
+  width: 200px;
+  height: 64px;
+  resize: vertical;
+}

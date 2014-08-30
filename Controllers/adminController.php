@@ -7,7 +7,6 @@ class AdminController extends Controller{
     public function index()
     {
         $this->filter('Auth');
-
         $pages = Page::all();
         include "views/admin/home.php";
     }

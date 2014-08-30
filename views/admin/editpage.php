@@ -1,6 +1,8 @@
 <html>
   <head>
   <title><?= (!isset($page)) ? "Crea Nuova Pagina" : $page->title; ?></title>
+      <link rel="stylesheet" type="text/css" href="/Assets/admin.css" />
+
       <script type="text/javascript">
           function add(fields)
           {
@@ -54,7 +56,7 @@
         ?>
             </div>
         <a href="#" onclick="add(Array('title', 'body'))">Add</a>
-      <input type="submit" name="submit" value="Edit" />
+      <input type="submit" class="btn-green" name="submit" value="Edit" />
       </form>
     </div>
   </body>
