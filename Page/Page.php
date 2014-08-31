@@ -69,7 +69,7 @@ class Page {
         return;
     }
 
-    public static function all()
+    public function all()
     {
         $instance = new self;
         $instance->db->query('SELECT * FROM pages');

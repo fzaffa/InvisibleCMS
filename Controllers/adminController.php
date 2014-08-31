@@ -1,15 +1,19 @@
 <?php
 class AdminController extends Controller{
     private $view;
-    public function __construct(View $view)
+    private $page;
+    public function __construct(View $view, Page $page)
     {
         $this->view = $view;
+        $this->page = $page;
     }
     public function index()
     {
         $this->filter('Auth');
-        $pages = Page::all();
-        include "views/admin/home.php";
+
+        $pages = $this->page->all();
+
+        $this->view->render('admin/home', ['pages' => $pages]);
     }
 
     public function login()
@@ -18,7 +22,8 @@ class AdminController extends Controller{
         {
             header('Location: /admin/');
         }
-        include 'views/admin/login.php';
+
+        $this->view->render('admin/login');
     }
 
     public function logout()
@@ -30,6 +35,7 @@ class AdminController extends Controller{
     public function create()
     {
         $this->filter('Auth');
+
         $this->view->render('admin/editpage');
 
     }
@@ -38,23 +44,21 @@ class AdminController extends Controller{
     {
         $this->filter('Auth');
 
-        $page = new Page;
-        $page->getPageBySlug($slug);
-        $page->getSections();
+        $this->page->getPageBySlug($slug);
+        $this->page->getSections();
 
-        include "views/admin/editpage.php";
+        $this->view->render('admin/editpage', ['page' => $this->page]);
 
     }
 
     public function store()
     {
-        $page = new Page;
         $validator = new PageValidator($_POST);
         if($validator->passes())
         {
-            $page->fill($_POST);
-            $page->fillSections($_POST['sections']);
-            $page->save();
+            $this->page->fill($_POST);
+            $this->page->fillSections($_POST['sections']);
+            $this->page->save();
             header('Location: /admin/');
         } else {
             Message::send('errors', $validator->errors);
