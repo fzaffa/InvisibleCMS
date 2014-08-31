@@ -1,9 +1,10 @@
 <?php
 class pageController extends Controller{
 
-    public function __construct($view)
+    private $view;
+    public function __construct(View $view)
     {
-        parent::construct($view);
+        $this->view = $view;
     }
     public function show($slug)
     {

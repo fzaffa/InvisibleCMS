@@ -20,7 +20,18 @@ class Router {
             }
         }
         list($controller, $action) = explode(':', $activeAction);
-        $controller = new $controller(new View);
+
+        $controllerReflection  = new ReflectionClass($controller);
+        $controllerConstructor = $controllerReflection->getConstructor();
+        $dependencies = [];
+
+        foreach ($controllerConstructor->getParameters() as $controllerConstructorParam) {
+            $className = $controllerConstructorParam->getClass()->name;
+            $dependencies[] = new $className;
+        }
+
+
+        $controller = $controllerReflection->newInstanceArgs($dependencies);
         (isset($param)) ? $controller->{$action}($param) : $controller->{$action}();
     }
 }
