@@ -1,7 +1,6 @@
 <?php namespace Fzaffa\System;
 
 class Controller {
-    use Filters;
 
     public function filter($filter)
     {
