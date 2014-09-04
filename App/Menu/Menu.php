@@ -1,4 +1,6 @@
-<?php
+<?php namespace Invisible\Menu;
+
+use Fzaffa\System\Database;
 
 class Menu {
 
@@ -14,7 +16,7 @@ class Menu {
     public function getMenu()
     {
         $this->db->query('SELECT slug, title FROM pages WHERE inmenu = 1');
-        $this->menuArray = $this->db->resultSet(PDO::FETCH_ASSOC);
+        $this->menuArray = $this->db->resultSet(\PDO::FETCH_ASSOC);
 
         return $this;
     }

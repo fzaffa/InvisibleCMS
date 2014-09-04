@@ -1,4 +1,7 @@
-<?php
+<?php namespace Invisible\Page;
+
+use \Fzaffa\System\Database;
+use Invisible\Section\Section;
 
 class Page {
 

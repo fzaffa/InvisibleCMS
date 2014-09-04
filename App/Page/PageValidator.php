@@ -1,4 +1,6 @@
-<?php
+<?php namespace Invisible\Page;
+
+use \Fzaffa\System\Validator;
 
 class PageValidator extends Validator {
 

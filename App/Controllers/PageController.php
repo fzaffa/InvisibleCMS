@@ -1,4 +1,9 @@
-<?php
+<?php namespace Invisible\Controllers;
+
+use Fzaffa\System\Controller;
+use Fzaffa\System\View;
+use Invisible\Menu\Menu;
+use Invisible\Page\Page;
 
 class pageController extends Controller {
 

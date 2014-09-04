@@ -1,4 +1,9 @@
-<?php
+<?php namespace Invisible\Controllers;
+
+use Fzaffa\System\Auth;
+use Fzaffa\System\View;
+use Invisible\Page\Page;
+use Fzaffa\System\Controller;
 
 class AdminController extends Controller {
 

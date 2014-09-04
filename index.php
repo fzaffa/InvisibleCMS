@@ -1,21 +1,15 @@
 <?php
 session_start();
-function __autoload($className)
-{
-    $folders = [
-        'src',
-        'Section',
-        'Page',
-        'Controllers',
-        ''
-    ];
-    foreach ($folders as $folder) {
-        if(file_exists($_SERVER['DOCUMENT_ROOT'].'/'.$folder.'/'.$className.'.php')){
-            require_once $_SERVER['DOCUMENT_ROOT'].'/'.$folder.'/'.$className.'.php';
-        }
-    }
-}
-$router = new Router;
+require_once __DIR__.'/System/Autoload.php';
+
+$controllersNamespace = "Invisible\\Controllers\\";
+
+$loader = new \Fzaffa\System\Psr4AutoloaderClass;
+$loader->register();
+$loader->addNamespace('Invisible', 'App');
+$loader->addNamespace('Fzaffa\System', 'System');
+$router = new \Fzaffa\System\Router($controllersNamespace);
+
 $router->route('/', 'pageController:home');
 $router->route('/([\w\-]+)', 'pageController:show');
 $router->route('/admin', 'adminController:index');
@@ -24,5 +18,5 @@ $router->route('/logout', 'adminController:logout');
 $router->route('/create', 'adminController:create');
 $router->route('/store', 'adminController:store');
 $router->route('/edit/([\w\-]+)', 'adminController:edit');
+
 $router->execute();
-?>
