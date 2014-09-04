@@ -1,6 +1,7 @@
 <?php
 
 class Database {
+
     private $host = 'localhost';
     private $dbname = 'mycms';
     private $user = 'homestead';
@@ -8,18 +9,20 @@ class Database {
     private $dbh;
     private $error;
     private $statement;
+
     public function __construct()
     {
         $dsn = 'mysql:host=' . $this->host . ';dbname=' . $this->dbname . ";charset=utf8";
-        $options = array(
-            PDO::ATTR_PERSISTENT    => true,
-            PDO::ATTR_ERRMODE       => PDO::ERRMODE_EXCEPTION
-        );
+        $options = [
+            PDO::ATTR_PERSISTENT => true,
+            PDO::ATTR_ERRMODE    => PDO::ERRMODE_EXCEPTION
+        ];
 
         try
         {
             $this->dbh = new PDO($dsn, $this->user, $this->pass, $options);
-        } catch (PDOException $e) {
+        } catch (PDOException $e)
+        {
             $this->error = $e->getMessage();
         }
     }
@@ -61,22 +64,21 @@ class Database {
     public function resultSet()
     {
         $this->execute();
+
         return $this->statement->fetchAll(PDO::FETCH_ASSOC);
     }
 
     public function fetchColumn()
     {
         $this->execute();
+
         return $this->statement->fetchColumn(PDO::FETCH_ASSOC);
     }
+
     public function getNumber()
     {
         $this->execute();
-        return $this->statement->fetch(PDO::FETCH_NUM)[0];
-    }
 
-    public function ciaociao($hey)
-    {
-    return get_object_vars($hey);
+        return $this->statement->fetch(PDO::FETCH_NUM)[0];
     }
 }

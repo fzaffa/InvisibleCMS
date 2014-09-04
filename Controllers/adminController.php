@@ -1,12 +1,23 @@
 <?php
-class AdminController extends Controller{
+
+class AdminController extends Controller {
+
+    /**
+     * @var \View
+     */
     private $view;
+    /**
+     * @var \Page
+     */
     private $page;
+
     public function __construct(View $view, Page $page)
     {
+
         $this->view = $view;
         $this->page = $page;
     }
+
     public function index()
     {
         $this->filter('Auth');
@@ -18,7 +29,7 @@ class AdminController extends Controller{
 
     public function login()
     {
-        if(Auth::login($_POST['username'], $_POST['password']))
+        if (Auth::login($_POST['username'], $_POST['password']))
         {
             header('Location: /admin/');
         }
@@ -54,15 +65,16 @@ class AdminController extends Controller{
     public function store()
     {
         $validator = new PageValidator($_POST);
-        if($validator->passes())
+        if ($validator->passes())
         {
             $this->page->fill($_POST);
             $this->page->fillSections($_POST['sections']);
             $this->page->save();
             header('Location: /admin/');
-        } else {
+        } else
+        {
             Message::send('errors', $validator->errors);
-            header('Location: '.$_SERVER['HTTP_REFERER']);
+            header('Location: ' . $_SERVER['HTTP_REFERER']);
         }
     }
 }

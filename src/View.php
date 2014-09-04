@@ -6,4 +6,4 @@ class View {
         if($data) extract($data);
         include 'views/'.$file.'.php';
     }
-} 
+}

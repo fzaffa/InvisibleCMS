@@ -1,13 +1,16 @@
 <?php
+
 class Page {
+
     public $id;
     public $inmenu;
     public $title;
     public $body;
     public $template;
     public $slug;
-    public $sections = array();
+    public $sections = [];
     protected $db;
+
     function __construct()
     {
         $this->db = new Database;
@@ -16,20 +19,21 @@ class Page {
     public function fill(array $input)
     {
 
-        if($input['id']=='') unset($input['id']);
+        if ($input['id'] == '') unset($input['id']);
         unset($input['sections']);
-        foreach($input as $key => $value)
+        foreach ($input as $key => $value)
         {
             $this->{$key} = $value;
         }
         $this->slug = strtolower(str_replace(' ', '-', $this->title));
+
         return $this;
 
     }
 
     public function save()
     {
-        if (!$this->id)
+        if ( ! $this->id)
         {
             $this->db->query("INSERT INTO pages (title, body, template, inmenu, slug)
                               VALUES (:title, :body, :template, :inmenu, :slug)");
@@ -40,6 +44,7 @@ class Page {
             $this->db->bind(':inmenu', $this->inmenu);
             $this->db->bind(':slug', $this->slug);
             $this->db->execute();
+
             return;
         }
         $this->db->query("UPDATE pages
@@ -54,18 +59,20 @@ class Page {
         $this->db->bind(':slug', $this->slug);
         $this->db->execute();
 
-        if(!empty($this->sections))
+        if ( ! empty($this->sections))
         {
             foreach ($this->sections as $section)
             {
-                if(!isset($section->_destroy))
+                if ( ! isset($section->_destroy))
                 {
                     $section->save();
-                } else {
+                } else
+                {
                     $section->delete();
                 }
             }
         }
+
         return;
     }
 
@@ -74,27 +81,29 @@ class Page {
         $instance = new self;
         $instance->db->query('SELECT * FROM pages');
         $results = $instance->db->resultSet();
-        $arr = array();
-        foreach($results as $result)
+        $arr = [];
+        foreach ($results as $result)
         {
             $obj = new Page;
             $instance->castToObject($result, $obj);
             unset($obj->db);
             array_push($arr, $obj);
         }
+
         return $arr;
     }
 
     public function fillSections($input)
     {
-        $sectionsarray = array();
-        foreach($input as $section)
+        $sectionsarray = [];
+        foreach ($input as $section)
         {
             $sectionobj = new Section($this->id);
             $sectionobj->fill($section);
             array_push($sectionsarray, $sectionobj);
         }
         $this->sections = $sectionsarray;;
+
         return $this;
     }
 
@@ -109,7 +118,8 @@ class Page {
         $this->db->bind(':slug', $slug);
         $result = $this->db->getNumber();
 
-        if($result>0) return true;
+        if ($result > 0) return true;
+
         return false;
     }
 
@@ -123,6 +133,7 @@ class Page {
         $this->db->query("SELECT * FROM pages WHERE slug = :slug");
         $this->db->bind(':slug', $slug);
         $result = $this->db->resultSet();
+
         return $this->castToObject($result[0]);
 
     }
@@ -136,7 +147,7 @@ class Page {
     private function castToObject(array $data, $obj = null)
     {
         $obj = ($obj) ? $obj : $this;
-        foreach($data as $key => $value)
+        foreach ($data as $key => $value)
         {
             $obj->{$key} = $value;
         }
@@ -154,6 +165,7 @@ class Page {
         $this->db->bind(':page_id', $this->id);
         $result = $this->db->resultSet();
         $this->castSectionsToObject($result);
+
         return $this;
     }
 
@@ -164,18 +176,19 @@ class Page {
      */
     private function castSectionsToObject(array $sections)
     {
-        $arr = array();
+        $arr = [];
         foreach ($sections as $section)
         {
             $obj = new Section;
-            foreach($section as $key => $value)
+            foreach ($section as $key => $value)
             {
                 $obj->{$key} = $value;
             }
             $obj->prepareForDisplay();
-            $arr[$obj->title]  = $obj;
+            $arr[$obj->title] = $obj;
         }
         $this->sections = $arr;
+
         return $this;
     }
 
@@ -186,7 +199,8 @@ class Page {
      */
     private function hasSection($title)
     {
-        if(isset($this->sections[$title])) return true;
+        if (isset($this->sections[$title])) return true;
+
         return false;
     }
 
@@ -197,7 +211,7 @@ class Page {
      */
     public function displaySection($title)
     {
-        return ($this->hasSection($title)) ? $this->sections[$title]->body : "Section ".$title." not found";
+        return ($this->hasSection($title)) ? $this->sections[$title]->body : "Section " . $title . " not found";
     }
 
     /**
@@ -207,6 +221,6 @@ class Page {
      */
     public function displaySectionTitle($title)
     {
-        return ($this->hasSection($title)) ? $this->sections[$title]->title : "Section ".$title." not found";
+        return ($this->hasSection($title)) ? $this->sections[$title]->title : "Section " . $title . " not found";
     }
 }

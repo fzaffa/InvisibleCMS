@@ -11,10 +11,8 @@ gulp.task('css', function(){
 	.pipe(gulp.dest('Assets/'));
 });
 
-gulp.task('default', function() {
-	gulp.run('css');
-
-	gulp.watch('Assets/Admin/*.scss', function(){
-		gulp.run('css');
-	});
+gulp.task('watch', function() {
+    gulp.watch('Assets/Admin/*.scss', ['css'])
 });
+
+gulp.task('default', ['css', 'watch']);

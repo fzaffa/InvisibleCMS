@@ -1,8 +1,10 @@
 <?php
+
 class PageValidator extends Validator {
-    protected  $rules = [
-        'title' => 'required|alphanum|min:3',
-        'body' => 'required',
+
+    protected $rules = [
+        'title'    => 'required|alphanum|min:3',
+        'body'     => 'required',
         'template' => 'required|alphanum',
     ];
 

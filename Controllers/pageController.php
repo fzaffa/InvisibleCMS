@@ -1,5 +1,6 @@
 <?php
-class pageController extends Controller{
+
+class pageController extends Controller {
 
     private $view;
     private $menu;
@@ -11,20 +12,24 @@ class pageController extends Controller{
         $this->menu = $menu;
         $this->page = $page;
     }
+
     public function show($slug)
     {
 
-        if ($this->page->hasPage($slug)) {
+        if ($this->page->hasPage($slug))
+        {
             $this->page->getPageBySlug($slug);
             $this->page->getSections();
 
-            $this->view->render('pages/'.$this->page->template, ['page'=>$this->page, 'menu'=>$this->menu]);
+            $this->view->render('pages/' . $this->page->template, ['page' => $this->page, 'menu' => $this->menu]);
+
             return;
         }
 
         $this->view->render('errors/404');
 
     }
+
     public function home()
     {
         $this->show('home');
