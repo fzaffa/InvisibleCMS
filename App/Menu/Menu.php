@@ -15,8 +15,8 @@ class Menu {
 
     public function getMenu()
     {
-        $this->db->query('SELECT slug, title FROM pages WHERE inmenu = 1');
-        $this->menuArray = $this->db->resultSet(\PDO::FETCH_ASSOC);
+        $this->db->query('SELECT slug, title FROM pages WHERE inmenu = true');
+        $this->menuArray = $this->db->get(\PDO::FETCH_ASSOC);
 
         return $this;
     }

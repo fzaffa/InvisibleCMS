@@ -1,0 +1,260 @@
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+	overflow: auto;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+body {
+	line-height: 1;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-spacing: 0;
+}
+
+
+
+/* actual stylesheet */
+body
+{
+	background-color: #F7F7F7;
+}
+.wrapper
+{
+	width: 960px;
+	margin: 0 auto;
+}
+.btn
+{
+	display: inline-block;
+	font-family: helvetica;
+	font-size: 16px;
+	line-height: 16px;
+	width: 110px;
+	border-radius: 3px;
+	background-color: #dedede;
+	text-align: center;
+	padding: 7px 0;
+	text-decoration: none;
+	color: #f5f5f5;
+}
+.btn-grey
+{
+	background-color: #727272;
+}
+.btn-green
+{
+	background-color: #0BAB97;
+}
+header
+{
+	width: 100%;
+	display: inline-block;
+	height: 52px;
+	background-color: white;
+	box-shadow: 0 3px 5px rgba(0, 0, 0, .1);
+}
+.headwrap
+{
+	width: 960px;
+	margin: 0 auto;
+}
+header h1
+{
+	float: left;
+	font-family: Helvetica-Light;
+	font-size: 18px;
+	color: #FF2682;
+	line-height: 18px;
+	text-transform: uppercase;
+	vertical-align: middle;
+	padding: 16px 0;
+}
+header a
+{
+	float: right;
+	margin-top: 10px;
+	
+}
+header ul
+{
+	display: inline-block;
+	width: auto;
+	font-size: 16px;
+	line-height: 16px;
+	font-family: Helvetica;
+	font-weight: 100;
+	text-transform: uppercase;
+	padding-top: 18px;
+}
+header ul li
+{
+	display: inline;
+	width: auto;
+	float: left;
+	margin-left: 25px;
+}
+.table-caption
+{
+	display: block;
+	width: 80%;
+	margin: 0 auto;
+	padding-top: 64px;
+}
+.table-caption h2
+{
+	font-family: Helvetica-Light;
+	font-size: 20px;
+	color: #5D5D5D;
+	line-height: 24px;
+	float: left;
+	margin: 3px 0;
+}
+.table-caption a
+{
+	float: right;
+}
+.page-list
+{
+	width: 80%;
+	margin: 50px auto;
+	background-color: white;
+	border: 1px solid #DBDBDB;
+	border-radius: 5px;
+}
+table tr:last-child td:first-child {
+    -moz-border-radius-bottomleft:10px;
+    -webkit-border-bottom-left-radius:10px;
+    border-bottom-left-radius:10px
+}
+
+table tr:last-child td:last-child {
+    -moz-border-radius-bottomright:10px;
+    -webkit-border-bottom-right-radius:10px;
+    border-bottom-right-radius:10px
+}
+thead td
+{
+	line-height: 16px;
+	font-family: Helvetica;
+	font-size: 16px;
+	padding: 18px 16px;
+	color: #0BAB97;
+}
+tbody td
+{
+	line-height: 15px;
+	font-family: Helvetica;
+	font-size: 15px;
+	padding: 16px 16px;
+	font-weight: 100;
+	color: #5D5D5D
+}
+tbody tr:nth-child(odd)
+{
+	background-color: #F7F7F7;
+}
+td:last-child
+{
+	width: 120px;
+}
+.boxes
+{
+	width: 80%;
+	display: block;
+	margin: 50px auto;
+}
+.box
+{
+	box-sizing: border-box;
+	background-color: white;
+	border-radius: 5px;
+	border: 1px solid #DBDBDB;
+	float: left;
+	width: 380px;
+	padding: 10px;
+}
+.box:last-child
+{
+	margin-left: 4px;
+}
+.box:first-child
+{
+	margin-right: 4px;
+}
+label
+{
+	width: 90px;
+	font-family: Helvetica;
+	font-weight: 100;
+	font-size: 16px;
+	color: #0BAB97;
+	line-height: 16px;
+	display: inline-block;
+	text-align: right;
+	padding-right: 10px;
+}
+input, select
+{
+	box-sizing: border-box;
+	height: 32px;
+	border-radius: 3px;
+	border: 1px solid #DBDBDB;
+	width: 200px;
+}
+input:focus, select:focus, textarea:focus
+{
+	border: 1px solid #0BAB97;
+	outline: none;
+}
+.line
+{
+	vertical-align: middle;
+}
+textarea
+{
+	box-sizing: border-box;
+	border-radius: 3px;
+	border: 1px solid #DBDBDB;
+	width: 200px;
+	height: 64px;
+	resize: vertical;
+}
+h3
+{
+	font-family: Helvetica-Light;
+font-size: 18px;
+color: #FF2682;
+line-height: 22px;
+/* Sections: */
+}

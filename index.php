@@ -1,17 +1,23 @@
 <?php
+
+use Fzaffa\System\Config;
+use Fzaffa\System\Psr4AutoloaderClass;
+use Fzaffa\System\Router;
+
 session_start();
 require_once __DIR__.'/System/Autoload.php';
-
-$controllersNamespace = "Invisible\\Controllers\\";
-
-$loader = new \Fzaffa\System\Psr4AutoloaderClass;
+$loader = new Psr4AutoloaderClass;
 $loader->register();
 $loader->addNamespace('Invisible', 'App');
 $loader->addNamespace('Fzaffa\System', 'System');
-$router = new \Fzaffa\System\Router($controllersNamespace);
 
-$router->route('/', 'pageController:home');
-$router->route('/([\w\-]+)', 'pageController:show');
+$conf = Config::getInstance(__DIR__.'/App/Config');
+
+
+$router = new Router();
+
+$router->route('/', 'PageController:home');
+$router->route('/([\w\-]+)', 'PageController:show');
 $router->route('/admin', 'adminController:index');
 $router->route('/login', 'adminController:login');
 $router->route('/logout', 'adminController:logout');

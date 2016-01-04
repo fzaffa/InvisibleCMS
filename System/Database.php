@@ -4,17 +4,21 @@ use PDO;
 
 class Database {
 
-    private $host = 'localhost';
-    private $dbname = 'mycms';
-    private $user = 'homestead';
-    private $pass = 'secret';
+    private $host;
+    private $dbname;
+    private $user;
+    private $pass;
     private $dbh;
     private $error;
     private $statement;
 
     public function __construct()
     {
-        $dsn = 'mysql:host=' . $this->host . ';dbname=' . $this->dbname . ";charset=utf8";
+        $this->host = Config::getInstance()->get('database.host');
+        $this->dbname = Config::getInstance()->get('database.database');
+        $this->user = Config::getInstance()->get('database.username');
+        $this->pass = Config::getInstance()->get('database.password');
+        $dsn = 'pgsql:host=' . $this->host . ';dbname=' . $this->dbname . ";";
         $options = [
             PDO::ATTR_PERSISTENT => true,
             PDO::ATTR_ERRMODE    => PDO::ERRMODE_EXCEPTION
@@ -63,11 +67,34 @@ class Database {
         return $this->statement->execute();
     }
 
-    public function resultSet()
+    public function get()
     {
         $this->execute();
 
-        return $this->statement->fetchAll(PDO::FETCH_ASSOC);
+        $results = $this->statement->fetchAll(PDO::FETCH_ASSOC);
+
+            return $results;
+
+    }
+    public function first()
+    {
+        $this->execute();
+
+        $results = $this->statement->fetchAll(PDO::FETCH_ASSOC);
+
+        return $results[0];
+    }
+
+    public function getModel($class)
+    {
+        $this->execute();
+
+        $results = $this->statement->fetchAll(PDO::FETCH_CLASS, $class);
+        if (count($results)>1)
+        {
+            return $results;
+        }
+        return $results[0];
     }
 
     public function fetchColumn()

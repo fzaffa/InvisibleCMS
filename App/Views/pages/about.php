@@ -13,6 +13,7 @@
     </div>
     <div id="cont">
         <?= $page->body ?>
+        
     </div>
 </div>
 </body>

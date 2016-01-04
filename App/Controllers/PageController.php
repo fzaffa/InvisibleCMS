@@ -3,30 +3,29 @@
 use Fzaffa\System\Controller;
 use Fzaffa\System\View;
 use Invisible\Menu\Menu;
-use Invisible\Page\Page;
+use Invisible\Page\PageRepository;
 
 class pageController extends Controller {
 
     private $view;
     private $menu;
-    private $page;
+    private $pageRepo;
 
-    public function __construct(View $view, Menu $menu, Page $page)
+    public function __construct(View $view, Menu $menu, PageRepository $pageRepo)
     {
         $this->view = $view;
         $this->menu = $menu;
-        $this->page = $page;
+        $this->pageRepo = $pageRepo;
     }
 
     public function show($slug)
     {
 
-        if ($this->page->hasPage($slug))
+        if ($this->pageRepo->hasPage($slug))
         {
-            $this->page->getPageBySlug($slug);
-            $this->page->getSections();
+            $page = $this->pageRepo->getPageBySlug($slug);
 
-            $this->view->render('pages/' . $this->page->template, ['page' => $this->page, 'menu' => $this->menu]);
+            $this->view->render('pages/' . $page->template, ['page' => $page, 'menu' => $this->menu]);
 
             return;
         }

@@ -29,7 +29,7 @@
             </ul>
         </div>
         <?php } ?>
-
+<form method="post" action="/admin/store">
     <input type="hidden" name="id" value="<?= (!isset($page)) ? "": $page->id; ?>" /><br />
     	<label>Title</label><input type="text" name="title" value="<?= (!isset($page)) ? "": $page->title; ?>" /><br />
     	<label>template</label><input type="text" name="template" value="<?= (!isset($page)) ? "": $page->template; ?>" /><br />

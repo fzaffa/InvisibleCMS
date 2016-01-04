@@ -6,8 +6,10 @@ use Fzaffa\System\Controller;
 
 use Invisible\Page\Page;
 use Invisible\Filters;
+use Invisible\Page\PageRepository;
 
 class AdminController extends Controller {
+
     use Filters;
     /**
      * @var \View
@@ -18,18 +20,18 @@ class AdminController extends Controller {
      */
     private $page;
 
-    public function __construct(View $view, Page $page)
+    public function __construct(View $view, PageRepository $pageRepo)
     {
 
         $this->view = $view;
-        $this->page = $page;
+        $this->pageRepo = $pageRepo;
     }
 
     public function index()
     {
         $this->filter('Auth');
 
-        $pages = $this->page->all();
+        $pages = $this->pageRepo->all();
 
         $this->view->render('admin/home', ['pages' => $pages]);
     }
@@ -62,10 +64,9 @@ class AdminController extends Controller {
     {
         $this->filter('Auth');
 
-        $this->page->getPageBySlug($slug);
-        $this->page->getSections();
+        $page = $this->pageRepo->getPageBySlug($slug);
 
-        $this->view->render('admin/editpage', ['page' => $this->page]);
+        $this->view->render('admin/editpage', ['page' => $page]);
 
     }
 
@@ -74,14 +75,15 @@ class AdminController extends Controller {
         $validator = new PageValidator($_POST);
         if ($validator->passes())
         {
-            $this->page->fill($_POST);
-            $this->page->fillSections($_POST['sections']);
-            $this->page->save();
+            $this->pageRepo->create($_POST);
             header('Location: /admin/');
-        } else
+        }
+        else
         {
             Message::send('errors', $validator->errors);
             header('Location: ' . $_SERVER['HTTP_REFERER']);
         }
+
+
     }
 }

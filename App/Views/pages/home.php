@@ -24,9 +24,11 @@
     <h3><?= $page->displaySectionTitle('Sinistra') ?></h3>
     <p><?= $page->displaySection('Sinistra') ?></p>
 </div>
+
 	
 </div>
 </div>
 </div>
+<?= var_dump($page) ?>
 </body>
 </html>

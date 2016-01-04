@@ -3,6 +3,7 @@
 <head>
     <link rel="stylesheet" type="text/css" href="/Assets/admin.css" />
 </head>
+<?= var_dump($page) ?>
 <body>
 
 <header>
