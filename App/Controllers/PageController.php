@@ -23,7 +23,7 @@ class pageController extends Controller {
 
         if ($this->pageRepo->hasPage($slug))
         {
-            $page = $this->pageRepo->getPageBySlug($slug);
+            $page = $this->pageRepo->getPageBySlugWithSections($slug);
 
             $this->view->render('pages/' . $page->template, ['page' => $page, 'menu' => $this->menu]);
 

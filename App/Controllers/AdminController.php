@@ -64,7 +64,7 @@ class AdminController extends Controller {
     {
         $this->filter('Auth');
 
-        $page = $this->pageRepo->getPageBySlug($slug);
+        $page = $this->pageRepo->getPageBySlugWithSections($slug);
 
         $this->view->render('admin/editpage', ['page' => $page]);
 

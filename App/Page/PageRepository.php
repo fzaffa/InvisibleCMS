@@ -11,6 +11,7 @@ class PageRepository {
         $this->db = new Database;
         $this->page = new Page;
         $this->sectionRepo = new SectionRepository;
+        $this->pageFactory = new PageFactory;
     }
 
     public function fill(array $input)
@@ -52,20 +53,20 @@ class PageRepository {
 
         $this->db->execute();
 
-        /*        if ( ! empty($this->sections))
+        if ( ! empty($this->sections))
+        {
+            foreach ($this->page->sections as $section)
+            {
+                if ( ! isset($section->_destroy))
                 {
-                    foreach ($this->page->sections as $section)
-                    {
-                        if ( ! isset($section->_destroy))
-                        {
-                            $section->save();
-                        }
-                        else
-                        {
-                            $section->delete();
-                        }
-                    }
-                }*/
+                    $this->sectionRepo->save($section);
+                }
+                else
+                {
+                    $this->sectionRepo->delete($section);
+                }
+            }
+        }
 
         return;
     }
@@ -98,7 +99,7 @@ class PageRepository {
      */
     public function hasPage($slug)
     {
-        $this->db->query("SELECT COUNT(*) FROM pages WHERE slug = :slug");
+        $this->db->query("SELECT COUNT(id) FROM pages WHERE slug = :slug");
         $this->db->bind(':slug', $slug);
         $result = $this->db->getNumber();
 
@@ -112,36 +113,36 @@ class PageRepository {
      * @param $slug
      * @return Page
      */
-    public function getPageBySlug($slug)
+    public function getPageBySlugWithSections($slug)
     {
         $this->db->query("SELECT * FROM pages WHERE slug = :slug");
         $this->db->bind(':slug', $slug);
-        $this->page = $this->db->getModel('Invisible\\Page\\Page');
+        $page = $this->db->getModel('Invisible\\Page\\Page');
+        //would like to refactor it
+        $page->sections = $this->sectionRepo->getSectionsForPage($page);
 
-        $this->page->sections = $this->sectionRepo->getSectionsForPage($this->page);
-
-        return $this->page;
+        return $page;
     }
-public function first()
-{
-    $this->db->query('SELECT * FROM pages ORDER BY id DESC limit 1');
-    return $this->page = $this->db->getModel('Invisible\\Page\\Page');
-}
+
+    public function first()
+    {
+        $this->db->query('SELECT * FROM pages ORDER BY id DESC limit 1');
+        return $this->db->getModel('Invisible\\Page\\Page');
+    }
+
     public function create($input)
     {
-        $sections = [];
-        foreach ($input['sections'] as $section)
-        {
-            $sections[] = $this->sectionRepo->create($section);
-        }
 
-        $this->fill($input);
-        $this->save();
-        $this->first();
-        foreach ($sections as $section)
+        $page = $this->pageFactory->createPageFromArrayData($input);
+
+        //add page to database and retrieve it to get the ID to be assigned to every section
+        $this->save($page);
+        $page = $this->first();
+        foreach ($page->sections as $section)
         {
-            $section->page_id = $this->page->id;
-            $section->save();
+            $section->page_id = $page->id;
+
+            $this->sectionRepo->save($section);
         }
 
     }
