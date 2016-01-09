@@ -14,21 +14,6 @@ class PageRepository {
         $this->pageFactory = new PageFactory;
     }
 
-    public function fill(array $input)
-    {
-
-        if ($input['id'] == '') unset($input['id']);
-        unset($input['sections']);
-        foreach ($input as $key => $value)
-        {
-            $this->page->{$key} = $value;
-        }
-        $this->page->slug = strtolower(str_replace(' ', '-', $this->page->title));
-
-        return $this->page;
-
-    }
-
     public function save()
     {
         if ( ! $this->page->id)

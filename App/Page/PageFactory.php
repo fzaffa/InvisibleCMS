@@ -42,6 +42,6 @@ class PageFactory {
      */
     private function sanitizeTitleForSlug($title)
     {
-        return strtolower(str_replace(' ', '-', str_replace('\'', '-', str_replace('/', '-', $title))));
+        return preg_replace('/[^a-zA-Z0-9]+/', '-', $title);
     }
 }
