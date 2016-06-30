@@ -18,24 +18,25 @@ class pageController extends Controller {
         $this->pageRepo = $pageRepo;
     }
 
-    public function show($slug)
+    public function show($slug) : string
     {
 
         if ($this->pageRepo->hasPage($slug))
         {
             $page = $this->pageRepo->getPageBySlugWithSections($slug);
 
-            $this->view->render('pages/' . $page->template, ['page' => $page, 'menu' => $this->menu]);
 
-            return;
+            $return = $this->view->render('pages/' . $page->template, ['page' => $page, 'menu' => $this->menu]);
+            return $return;
+
         }
 
-        $this->view->render('errors/404');
+        return $this->view->render('errors/404');
 
     }
 
     public function home()
     {
-        $this->show('home');
+        return $this->show('home');
     }
 }

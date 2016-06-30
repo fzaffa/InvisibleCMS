@@ -25,4 +25,4 @@ $router->route('/create', 'adminController:create');
 $router->route('/store', 'adminController:store');
 $router->route('/edit/([\w\-]+)', 'adminController:edit');
 
-$router->execute();
+$router->execute()->send();

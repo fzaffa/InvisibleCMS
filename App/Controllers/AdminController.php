@@ -33,7 +33,7 @@ class AdminController extends Controller {
 
         $pages = $this->pageRepo->all();
 
-        $this->view->render('admin/home', ['pages' => $pages]);
+        return $this->view->render('admin/home', ['pages' => $pages]);
     }
 
     public function login()
@@ -43,7 +43,7 @@ class AdminController extends Controller {
             header('Location: /admin/');
         }
 
-        $this->view->render('admin/login');
+        return $this->view->render('admin/login');
     }
 
     public function logout()
@@ -56,7 +56,7 @@ class AdminController extends Controller {
     {
         $this->filter('Auth');
 
-        $this->view->render('admin/editpage');
+        return $this->view->render('admin/editpage');
 
     }
 
@@ -66,7 +66,7 @@ class AdminController extends Controller {
 
         $page = $this->pageRepo->getPageBySlugWithSections($slug);
 
-        $this->view->render('admin/editpage', ['page' => $page]);
+        return $this->view->render('admin/editpage', ['page' => $page]);
 
     }
 

@@ -29,6 +29,5 @@
 </div>
 </div>
 </div>
-<?= var_dump($page) ?>
 </body>
 </html>

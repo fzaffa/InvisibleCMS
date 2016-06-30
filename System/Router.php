@@ -17,7 +17,7 @@ class Router {
         $this->routes[$route] = $callback;
     }
 
-    public function execute()
+    public function execute() : Response
     {
         list($param, $controller, $action) = $this->matches();
 
@@ -30,7 +30,11 @@ class Router {
 
 
         $controller = $controllerReflection->newInstanceArgs($dependencies);
-        ($param) ? $controller->{$action}($param) : $controller->{$action}();
+
+
+        return (new Response())->append(
+            ($param) ? $controller->{$action}($param) : $controller->{$action}()
+        );
     }
 
     /**

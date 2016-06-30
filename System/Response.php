@@ -61,12 +61,12 @@ class Response {
         $this->headers[$type] = $value;
     }
 
-    public function append($cont)
+    public function append(string $cont)
     {
         $this->length = strlen($cont);
         $this->body .= $cont;
         $this->headers['Content-Length'] = $this->length;
-        return this;
+        return $this;
     }
 
     public function send($code = 200)
