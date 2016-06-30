@@ -1,6 +1,7 @@
 <?php namespace Invisible\Controllers;
 
 use Fzaffa\System\Controller;
+use Fzaffa\System\Response;
 use Fzaffa\System\View;
 use Invisible\Menu\Menu;
 use Invisible\Page\PageRepository;
@@ -31,7 +32,9 @@ class pageController extends Controller {
 
         }
 
-        return $this->view->render('errors/404');
+        return (new Response)
+            ->append($this->view->render('errors/404'))
+            ->setCode(404);
 
     }
 

@@ -6,10 +6,10 @@ use \Fzaffa\System\Database;
 
 class SectionRepository {
 
-	function __construct()
+	function __construct(Database $db, SectionFactory $sectionFactory)
     {
-        $this->db = new Database;
-        $this->sectionFactory = new SectionFactory;
+        $this->db = $db;
+        $this->sectionFactory = $sectionFactory;
     }
 
 	public function getSectionsForPage(Page $page)

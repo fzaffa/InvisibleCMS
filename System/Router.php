@@ -3,13 +3,15 @@
 class Router {
 
     private $routes = [];
+    private $resolver;
 
     private $controllersNamespace;
 
-    public function __construct()
+    public function __construct($controllersNamespace, Resolver $resolver)
     {
 
-        $this->controllersNamespace = Config::getInstance()->get('app.controllernamespace');
+        $this->controllersNamespace = $controllersNamespace;
+        $this->resolver = $resolver;
     }
 
     public function route($route, $callback)
@@ -22,19 +24,20 @@ class Router {
         list($param, $controller, $action) = $this->matches();
 
         $controller = $this->controllersNamespace . $controller;
-        $controllerReflection = new \ReflectionClass($controller);
-        $controllerConstructor = $controllerReflection->getConstructor();
-        $dependencies = [];
 
-        $dependencies = $this->instantiateDependencies($controllerConstructor, $dependencies);
+        $controller = $this->resolver->resolve($controller);
 
+        $response = ($param) ? $controller->{$action}($param) : $controller->{$action}();
 
-        $controller = $controllerReflection->newInstanceArgs($dependencies);
-
-
-        return (new Response())->append(
-            ($param) ? $controller->{$action}($param) : $controller->{$action}()
-        );
+        if(is_string($response))
+        {
+            return (new Response())->append($response);
+        }
+        if(is_null($response))
+        {
+            return (new Response())->setCode(200);
+        }
+        return $response;
     }
 
     /**

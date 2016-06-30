@@ -55,10 +55,18 @@ class Response {
     private $headers = [];
     private $body;
     private $length;
+    private $code = 200;
 
     public function setHeaders($type, $value)
     {
         $this->headers[$type] = $value;
+        return $this;
+    }
+
+    public function setCode(int $code = 200)
+    {
+        $this->code = $code;
+        return $this;
     }
 
     public function append(string $cont)
@@ -69,9 +77,9 @@ class Response {
         return $this;
     }
 
-    public function send($code = 200)
+    public function send()
     {
-        header('HTTP/1.1 '.$this->codes[$code]);
+        header('HTTP/1.1 '.$this->codes[$this->code]);
 
         foreach ($this->headers as $type => $value)
         {

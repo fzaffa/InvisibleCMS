@@ -6,12 +6,12 @@ use Invisible\Section\SectionRepository;
 
 class PageRepository {
 
-    function __construct()
+    function __construct(Database $db, SectionRepository $sectionRepository, PageFactory $pageFactory)
     {
-        $this->db = new Database;
+        $this->db = $db;
         $this->page = new Page;
-        $this->sectionRepo = new SectionRepository;
-        $this->pageFactory = new PageFactory;
+        $this->sectionRepo = $sectionRepository;
+        $this->pageFactory = $pageFactory;
     }
 
     public function save()
