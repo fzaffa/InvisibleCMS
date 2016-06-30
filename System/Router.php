@@ -41,22 +41,6 @@ class Router {
     }
 
     /**
-     * @param $controllerConstructor
-     * @param $dependencies
-     * @return array
-     */
-    private function instantiateDependencies($controllerConstructor, $dependencies)
-    {
-        foreach ($controllerConstructor->getParameters() as $controllerConstructorParam)
-        {
-            $className = $controllerConstructorParam->getClass()->name;
-            $dependencies[] = new $className;
-        }
-
-        return $dependencies;
-    }
-
-    /**
      * @return array
      */
     private function matches()
