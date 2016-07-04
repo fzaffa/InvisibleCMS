@@ -9,13 +9,11 @@ use Invisible\Page\PageRepository;
 class pageController extends Controller {
 
     private $view;
-    private $menu;
     private $pageRepo;
 
-    public function __construct(View $view, Menu $menu, PageRepository $pageRepo)
+    public function __construct(View $view, PageRepository $pageRepo)
     {
         $this->view = $view;
-        $this->menu = $menu;
         $this->pageRepo = $pageRepo;
     }
 
@@ -26,8 +24,10 @@ class pageController extends Controller {
         {
             $page = $this->pageRepo->getPageBySlugWithSections($slug);
 
+            $menuItems = $this->pageRepo->getAllPagesInMenu();
 
-            $return = $this->view->render('pages/' . $page->template, ['page' => $page, 'menu' => $this->menu]);
+
+            $return = $this->view->render('pages/' . $page->template, ['page' => $page, 'menu' => $menuItems]);
             return $return;
 
         }

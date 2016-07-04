@@ -4,6 +4,7 @@ use Fzaffa\System\Config;
 use Fzaffa\System\Psr4AutoloaderClass;
 use Fzaffa\System\Router;
 use Fzaffa\System\Resolver;
+use Fzaffa\System\AssemblerRunner;
 
 session_start();
 require_once __DIR__.'/System/Autoload.php';
@@ -12,12 +13,13 @@ $loader->register();
 $loader->addNamespace('Invisible', 'App');
 $loader->addNamespace('Fzaffa\System', 'System');
 
-
 $conf = Config::getInstance(__DIR__.'/App/Config');
-
+$resolver = new Resolver();
+$runner  = new AssemblerRunner($conf->get('assemblers'), $resolver);
+$runner->runAssemblers();
 $router = new Router(
     $conf->get('app.controllernamespace'),
-    new Resolver);
+    $resolver);
 
 $router->route('/', 'PageController:home');
 $router->route('/([\w\-]+)', 'PageController:show');

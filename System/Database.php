@@ -12,12 +12,12 @@ class Database {
     private $error;
     private $statement;
 
-    public function __construct()
+    public function __construct(string $host, string $dbname, string $user, string $pass)
     {
-        $this->host = Config::getInstance()->get('database.host');
-        $this->dbname = Config::getInstance()->get('database.database');
-        $this->user = Config::getInstance()->get('database.username');
-        $this->pass = Config::getInstance()->get('database.password');
+        $this->host = $host;
+        $this->dbname = $dbname;
+        $this->user = $user;
+        $this->pass = $pass;
         $dsn = 'pgsql:host=' . $this->host . ';dbname=' . $this->dbname . ";";
         $options = [
             PDO::ATTR_PERSISTENT => true,

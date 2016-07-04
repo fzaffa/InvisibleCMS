@@ -1,4 +1,6 @@
-<?php namespace Invisible\Page;
+<?php
+
+namespace Invisible\Page;
 
 use \Fzaffa\System\Database;
 use Invisible\Section\SectionRepository;
@@ -60,7 +62,7 @@ class PageRepository {
     {
         $this->db->query('SELECT * FROM pages');
 
-        return $this->db->getModel('Invisible\\Page\\Page');
+        return $this->db->getModel(Page::class);
     }
 
     /*   public function fillSections($input)
@@ -102,11 +104,18 @@ class PageRepository {
     {
         $this->db->query("SELECT * FROM pages WHERE slug = :slug");
         $this->db->bind(':slug', $slug);
-        $page = $this->db->getModel('Invisible\\Page\\Page');
+        $page = $this->db->getModel(Page::class);
         //would like to refactor it
         $page->sections = $this->sectionRepo->getSectionsForPage($page);
 
         return $page;
+    }
+
+    public function getAllPagesInMenu()
+    {
+        $this->db->query("SELECT * FROM pages WHERE inmenu = true");
+
+        return $this->db->getModel(Page::class);
     }
 
     public function first()

@@ -8,7 +8,9 @@
 		<div id="header">
 		<div id="logo"><h1>InvisibleCMS</h1></div>
             <div id="nav">
-                <?= $menu->getMenu()->menuPresenter(); ?>
+                <? foreach($menu as $item): ?>
+                <a href="" <?= $item->title ?>
+                <? endforeach ?>
             </div>
 </div>
 <div id="cont">
