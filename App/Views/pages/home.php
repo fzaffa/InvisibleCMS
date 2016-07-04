@@ -8,9 +8,11 @@
 		<div id="header">
 		<div id="logo"><h1>InvisibleCMS</h1></div>
             <div id="nav">
+                <ul>
                 <? foreach($menu as $item): ?>
-                <a href="" <?= $item->title ?>
+                <li><a href="<?= $item->slug ?> "><?= $item->title ?></a></li>
                 <? endforeach ?>
+                </ul>
             </div>
 </div>
 <div id="cont">
