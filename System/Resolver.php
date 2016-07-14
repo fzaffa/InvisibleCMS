@@ -5,14 +5,20 @@ namespace Fzaffa\System;
 
 class Resolver
 {
-    private $binded = [];
+    private $bound = [];
     private $resolved = [];
-
+    private $boundLazy = [];
     public function resolve($class)
     {
-        if (array_key_exists($class, $this->binded))
+        if (array_key_exists($class, $this->bound))
         {
-            return $this->binded[$class];
+            return $this->bound[$class];
+        }
+        if (array_key_exists($class, $this->boundLazy))
+        {
+            $this->boundLazy[$class]->run();
+
+            return $this->bound[$class];
         }
         $reflection = new \ReflectionClass($class);
         $constructor = $reflection->getConstructor();
@@ -39,7 +45,12 @@ class Resolver
     public function bind(string $className, $instance) {
         if($instance instanceof $className )
         {
-            $this->binded[$className] = $instance;
+            $this->bound[$className] = $instance;
         }
+    }
+
+    public function bindLazy(string $className, ILazyAssembler $assembler)
+    {
+        $this->boundLazy[$className] = $assembler;
     }
 }

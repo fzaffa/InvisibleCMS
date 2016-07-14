@@ -24,8 +24,14 @@ class AssemblerRunner
     {
         foreach($this->assemblersToRun as $assembler)
         {
+            $assembler = new $assembler($this->resolver);
             //var_dump('ciao da ' .$assembler);
-            (new $assembler($this->resolver))->run();
+            if($assembler instanceof ILazyAssembler)
+            {
+                $this->resolver->bindLazy($assembler->getClass(), $assembler);
+            } elseif ($assembler instanceof IAssembler) {
+                $assembler->run();
+            }
         }
     }
 }
